@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "/products/santa-cruz-stigmata-3-cc-force-1x", "label": "/products/santa-cruz-stigmata-3-cc-force-1x", "shape": "dot", "size": 10}, {"id": "/", "label": "/", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-force-1x-700c", "label": "/products/santa-cruz-stigmata-cc-force-1x-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-force-axs-650b", "label": "/products/santa-cruz-stigmata-cc-force-axs-650b", "shape": "dot", "size": 10}, {"id": "/presenting-the-2020-juliana-quincy-santa-cruz-stigmata-gravel-bikes", "label": "/presenting-the-2020-juliana-quincy-santa-cruz-stigmata-gravel-bikes", "shape": "dot", "size": 10}, {"id": "/blogs/blog/presenting-the-2020-juliana-quincy-santa-cruz-stigmata-gravel-bikes", "label": "/blogs/blog/presenting-the-2020-juliana-quincy-santa-cruz-stigmata-gravel-bikes", "shape": "dot", "size": 10}, {"id": "/product-tag/santa-cruz-stigmata", "label": "/product-tag/santa-cruz-stigmata", "shape": "dot", "size": 10}, {"id": "/pages/santa-cruz", "label": "/pages/santa-cruz", "shape": "dot", "size": 10}, {"id": "/product/2021-santa-cruz-stigmata-cc-force-axs-1x-700c", "label": "/product/2021-santa-cruz-stigmata-cc-force-axs-1x-700c", "shape": "dot", "size": 10}, {"id": "/product/santa-cruz-stigmata-cc-force-1x-700c", "label": "/product/santa-cruz-stigmata-cc-force-1x-700c", "shape": "dot", "size": 10}, {"id": "/products/2021-santa-cruz-stigmata-cc-force-axs-1x-700c", "label": "/products/2021-santa-cruz-stigmata-cc-force-axs-1x-700c", "shape": "dot", "size": 10}, {"id": "/product/santa-cruz-stigmata-cc-force-axs-650b", "label": "/product/santa-cruz-stigmata-cc-force-axs-650b", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-force-axs-1x-650b", "label": "/products/santa-cruz-stigmata-cc-force-axs-1x-650b", "shape": "dot", "size": 10}, {"id": "/collections/size-2xl/products/santa-cruz-stigmata-cc-force-2x-700c", "label": "/collections/size-2xl/products/santa-cruz-stigmata-cc-force-2x-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-3-cc-force-2x", "label": "/products/santa-cruz-stigmata-3-cc-force-2x", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-force-2x-700c", "label": "/products/santa-cruz-stigmata-cc-force-2x-700c", "shape": "dot", "size": 10}, {"id": "/product/santa-cruz-stigmata-cc-force-2x-700c", "label": "/product/santa-cruz-stigmata-cc-force-2x-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c", "label": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-grx-700c", "label": "/products/santa-cruz-stigmata-cc-grx-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-3-cc-grx", "label": "/products/santa-cruz-stigmata-3-cc-grx", "shape": "dot", "size": 10}, {"id": "/product/santa-cruz-stigmata-cc-grx-700c", "label": "/product/santa-cruz-stigmata-cc-grx-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-rival-700c", "label": "/products/santa-cruz-stigmata-cc-rival-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-3-cc-rival", "label": "/products/santa-cruz-stigmata-3-cc-rival", "shape": "dot", "size": 10}, {"id": "/product/2021-santa-cruz-stigmata-cc-rival-700c", "label": "/product/2021-santa-cruz-stigmata-cc-rival-700c", "shape": "dot", "size": 10}, {"id": "/product/santa-cruz-stigmata-cc-rival-700c", "label": "/product/santa-cruz-stigmata-cc-rival-700c", "shape": "dot", "size": 10}, {"id": "/product/2021-santa-cruz-stigmata-cc-force-axs-2x-700c", "label": "/product/2021-santa-cruz-stigmata-cc-force-axs-2x-700c", "shape": "dot", "size": 10}, {"id": "/products/2021-santa-cruz-stigmata-cc-force-axs-2x-700c", "label": "/products/2021-santa-cruz-stigmata-cc-force-axs-2x-700c", "shape": "dot", "size": 10}, {"id": "/product/2021-santa-cruz-stigmata-cc-force-axs-1x-650b", "label": "/product/2021-santa-cruz-stigmata-cc-force-axs-1x-650b", "shape": "dot", "size": 10}, {"id": "/products/2021-santa-cruz-stigmata-cc-force-axs-1x-650b", "label": "/products/2021-santa-cruz-stigmata-cc-force-axs-1x-650b", "shape": "dot", "size": 10}, {"id": "/product/2020-santa-cruz-stigmata-cc-force-axs-700c", "label": "/product/2020-santa-cruz-stigmata-cc-force-axs-700c", "shape": "dot", "size": 10}, {"id": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c/", "label": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c/", "shape": "dot", "size": 10}, {"id": "/product/2020-santa-cruz-stigmata-cc-frameset", "label": "/product/2020-santa-cruz-stigmata-cc-frameset", "shape": "dot", "size": 10}, {"id": "/products/2020-santa-cruz-stigmata-cc-force-axs-700c", "label": "/products/2020-santa-cruz-stigmata-cc-force-axs-700c", "shape": "dot", "size": 10}, {"id": "/products/2020-santa-cruz-stigmata-cc-frameset", "label": "/products/2020-santa-cruz-stigmata-cc-frameset", "shape": "dot", "size": 10}, {"id": "/products/2021-santa-cruz-stigmata-cc-force-2x-700c", "label": "/products/2021-santa-cruz-stigmata-cc-force-2x-700c", "shape": "dot", "size": 10}, {"id": "https://contenderbicycles.com/collections/bikes-in-stock/santa-cruz", "label": "https://contenderbicycles.com/collections/bikes-in-stock/santa-cruz", "shape": "dot", "size": 10}, {"id": "/products/2021-santa-cruz-stigmata-cc-force-axs-650b", "label": "/products/2021-santa-cruz-stigmata-cc-force-axs-650b", "shape": "dot", "size": 10}, {"id": "/products/2021-santa-cruz-stigmata-cc-grx-700c", "label": "/products/2021-santa-cruz-stigmata-cc-grx-700c", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "/products/santa-cruz-stigmata-3-cc-force-1x", "label": 1, "to": "/", "weight": 1}, {"from": "/products/santa-cruz-stigmata-3-cc-force-1x", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-1x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-3-cc-force-1x", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-axs-650b", "weight": 1}, {"from": "/presenting-the-2020-juliana-quincy-santa-cruz-stigmata-gravel-bikes", "label": 1, "to": "/blogs/blog/presenting-the-2020-juliana-quincy-santa-cruz-stigmata-gravel-bikes", "weight": 1}, {"from": "/product-tag/santa-cruz-stigmata", "label": 1, "to": "/pages/santa-cruz", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-1x-700c", "label": 1, "to": "/product/2021-santa-cruz-stigmata-cc-force-axs-1x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-1x-700c", "label": 1, "to": "/product/santa-cruz-stigmata-cc-force-1x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-1x-700c", "label": 1, "to": "/products/2021-santa-cruz-stigmata-cc-force-axs-1x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-650b", "label": 1, "to": "/product/santa-cruz-stigmata-cc-force-axs-650b", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-650b", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-axs-1x-650b", "weight": 1}, {"from": "/collections/size-2xl/products/santa-cruz-stigmata-cc-force-2x-700c", "label": 1, "to": "/products/santa-cruz-stigmata-3-cc-force-2x", "weight": 1}, {"from": "/products/santa-cruz-stigmata-3-cc-force-2x", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-2x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-2x-700c", "label": 1, "to": "/product/santa-cruz-stigmata-cc-force-2x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-2x-700c", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-grx-700c", "label": 1, "to": "/products/santa-cruz-stigmata-3-cc-grx", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-grx-700c", "label": 1, "to": "/product/santa-cruz-stigmata-cc-grx-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-rival-700c", "label": 1, "to": "/products/santa-cruz-stigmata-3-cc-rival", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-rival-700c", "label": 1, "to": "/product/2021-santa-cruz-stigmata-cc-rival-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-rival-700c", "label": 1, "to": "/product/santa-cruz-stigmata-cc-rival-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c", "label": 1, "to": "/product/2021-santa-cruz-stigmata-cc-force-axs-2x-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c", "label": 1, "to": "/products/2021-santa-cruz-stigmata-cc-force-axs-2x-700c", "weight": 1}, {"from": "/product/2021-santa-cruz-stigmata-cc-force-axs-1x-650b", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-axs-1x-650b", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-1x-650b", "label": 1, "to": "/products/2021-santa-cruz-stigmata-cc-force-axs-1x-650b", "weight": 1}, {"from": "/product/2020-santa-cruz-stigmata-cc-force-axs-700c", "label": 1, "to": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c/", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c/", "label": 1, "to": "/product/2020-santa-cruz-stigmata-cc-frameset", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c/", "label": 1, "to": "/products/2020-santa-cruz-stigmata-cc-force-axs-700c", "weight": 1}, {"from": "/products/santa-cruz-stigmata-cc-force-axs-2x-700c/", "label": 1, "to": "/products/2020-santa-cruz-stigmata-cc-frameset", "weight": 1}, {"from": "/products/2021-santa-cruz-stigmata-cc-force-2x-700c", "label": 1, "to": "https://contenderbicycles.com/collections/bikes-in-stock/santa-cruz", "weight": 1}, {"from": "https://contenderbicycles.com/collections/bikes-in-stock/santa-cruz", "label": 1, "to": "/products/2021-santa-cruz-stigmata-cc-force-axs-650b", "weight": 1}, {"from": "https://contenderbicycles.com/collections/bikes-in-stock/santa-cruz", "label": 1, "to": "/products/2021-santa-cruz-stigmata-cc-grx-700c", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
