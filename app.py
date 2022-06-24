@@ -1,28 +1,33 @@
-import os ;
 import networkx as nx ;
 import csv ;
 from pyvis.network import Network ;
 
-
+#take csv and pulls it into tuples
+#creates edge list and generates graph with it RETURNS graph
 def csvIN () :
     output = []
     with open('DATA.csv') as csvfile:
         array = csv.reader(csvfile)
         loopableArray = list(array)
-
     for line in loopableArray:
-        output.append((line[0],line[1]))
+        output.append((line[0],line[1]))    
+    graph = nx.Graph(output)
+    return graph
+    
+def visualize (graph) :
+    net = Network(notebook=True)
+    dir_network = nx.Graph(graph)
+    net.from_nx(dir_network)
+    net.show("output.html")
 
-    return output
 
 
 
 def main():
     net = Network(notebook=True)
-    edgelist = csvIN()
-    dir_network = nx.Graph(edgelist)
-    net.from_nx(dir_network)
-    net.show("example.html")
+    graph = csvIN()
+    visualize(graph)
+    
     
     
 main()
