@@ -1,6 +1,7 @@
 import networkx as nx ;
 import csv ;
 from pyvis.network import Network ;
+#virtual env GRAPH source GRAPH/bin/activate
 
 #take csv and pulls it into tuples
 #creates edge list and generates graph with it RETURNS graph
@@ -20,14 +21,20 @@ def visualize (graph) :
     net.from_nx(dir_network)
     net.show("output.html")
 
-
+def getParentNodes (graph) :
+    parentNodes = []
+    for n in graph.nodes :
+        if len(list(graph.neighbors(n))) > 1 :
+            parentNodes.append(n)
+    return parentNodes
+        
+        
 
 
 def main():
     net = Network(notebook=True)
     graph = csvIN()
-    visualize(graph)
-    
-    
-    
+    #visualize(graph)
+    print(getParentNodes(graph))
+     
 main()

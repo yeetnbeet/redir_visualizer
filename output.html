@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 2000px;
+            height: 2000px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "/product/2020-orbea-alma-m-team", "label": "/product/2020-orbea-alma-m-team", "shape": "dot", "size": 10}, {"id": "/pages/orbea/", "label": "/pages/orbea/", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-alma-m10", "label": "/product/2020-orbea-alma-m10", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-alma-m15", "label": "/product/2020-orbea-alma-m15", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-alma-m25", "label": "/product/2020-orbea-alma-m25", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-alma-m30", "label": "/product/2020-orbea-alma-m30", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-alma-m50", "label": "/product/2020-orbea-alma-m50", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-alma-m50-eagle", "label": "/product/2020-orbea-alma-m50-eagle", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-avant-m20team-d", "label": "/product/2020-orbea-avant-m20team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-avant-m30-team-d", "label": "/product/2020-orbea-avant-m30-team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-avant-m40-team-d", "label": "/product/2020-orbea-avant-m40-team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-d20", "label": "/product/2020-orbea-gain-d20", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-d30-20mph", "label": "/product/2020-orbea-gain-d30-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-d31-20mph", "label": "/product/2020-orbea-gain-d31-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-f20-20mph", "label": "/product/2020-orbea-gain-f20-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-f25-20mph", "label": "/product/2020-orbea-gain-f25-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-f30-20mph", "label": "/product/2020-orbea-gain-f30-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-f35-20mph", "label": "/product/2020-orbea-gain-f35-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-m10i-20mph", "label": "/product/2020-orbea-gain-m10i-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-m10i-20mph-medium-black-red-demo", "label": "/product/2020-orbea-gain-m10i-20mph-medium-black-red-demo", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-gain-m30-20mph", "label": "/product/2020-orbea-gain-m30-20mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-h10", "label": "/product/2020-orbea-occam-h10", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-h20", "label": "/product/2020-orbea-occam-h20", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-h20-eagle", "label": "/product/2020-orbea-occam-h20-eagle", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-h30", "label": "/product/2020-orbea-occam-h30", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-m-ltd", "label": "/product/2020-orbea-occam-m-ltd", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-m10-size-sm-slc51-demo-sale", "label": "/product/2020-orbea-occam-m10-size-sm-slc51-demo-sale", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-m30", "label": "/product/2020-orbea-occam-m30", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-m30-eagle", "label": "/product/2020-orbea-occam-m30-eagle", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-m30-eagle-size-lg-pc74-demo-sale", "label": "/product/2020-orbea-occam-m30-eagle-size-lg-pc74-demo-sale", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-occam-omrdpx2", "label": "/product/2020-orbea-occam-omrdpx2", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-oiz-h20", "label": "/product/2020-orbea-oiz-h20", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-oiz-h30", "label": "/product/2020-orbea-oiz-h30", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-oiz-m-ltd", "label": "/product/2020-orbea-oiz-m-ltd", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-oiz-m-team", "label": "/product/2020-orbea-oiz-m-team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-oiz-m30", "label": "/product/2020-orbea-oiz-m30", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-optima-e40-20-mph", "label": "/product/2020-orbea-optima-e40-20-mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-optima-e50-20-mph", "label": "/product/2020-orbea-optima-e50-20-mph", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m10i-team-d", "label": "/product/2020-orbea-orca-aero-m10i-team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m11e-team-d", "label": "/product/2020-orbea-orca-aero-m11e-team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m20i-team-d", "label": "/product/2020-orbea-orca-aero-m20i-team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m20iteam-d", "label": "/product/2020-orbea-orca-aero-m20iteam-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m20team", "label": "/product/2020-orbea-orca-aero-m20team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m20team-d", "label": "/product/2020-orbea-orca-aero-m20team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m20team-pwr", "label": "/product/2020-orbea-orca-aero-m20team-pwr", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m30team", "label": "/product/2020-orbea-orca-aero-m30team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-aero-m30team-d", "label": "/product/2020-orbea-orca-aero-m30team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m11eteam-d", "label": "/product/2020-orbea-orca-m11eteam-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m20", "label": "/product/2020-orbea-orca-m20", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m20iteam-d", "label": "/product/2020-orbea-orca-m20iteam-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m20team", "label": "/product/2020-orbea-orca-m20team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m20team-d", "label": "/product/2020-orbea-orca-m20team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m21eltd-d", "label": "/product/2020-orbea-orca-m21eltd-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m21eteam-d", "label": "/product/2020-orbea-orca-m21eteam-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m21iteam-d", "label": "/product/2020-orbea-orca-m21iteam-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m30", "label": "/product/2020-orbea-orca-m30", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m30team", "label": "/product/2020-orbea-orca-m30team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m30team-d", "label": "/product/2020-orbea-orca-m30team-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-orca-m40", "label": "/product/2020-orbea-orca-m40", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-ordu-m20-team", "label": "/product/2020-orbea-ordu-m20-team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-ordu-m20i-team", "label": "/product/2020-orbea-ordu-m20i-team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-rallon-m-ltd", "label": "/product/2020-orbea-rallon-m-ltd", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-rallon-m-team", "label": "/product/2020-orbea-rallon-m-team", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-rallon-m10", "label": "/product/2020-orbea-rallon-m10", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-rallon-m20", "label": "/product/2020-orbea-rallon-m20", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-terra-h30-d", "label": "/product/2020-orbea-terra-h30-d", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-terra-m30-d-1x", "label": "/product/2020-orbea-terra-m30-d-1x", "shape": "dot", "size": 10}, {"id": "/product/2020-orbea-vector-drop-ltd", "label": "/product/2020-orbea-vector-drop-ltd", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "/product/2020-orbea-alma-m-team", "label": 1, "to": "/pages/orbea/", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-alma-m10", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-alma-m15", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-alma-m25", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-alma-m30", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-alma-m50", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-alma-m50-eagle", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-avant-m20team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-avant-m30-team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-avant-m40-team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-d20", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-d30-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-d31-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-f20-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-f25-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-f30-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-f35-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-m10i-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-m10i-20mph-medium-black-red-demo", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-gain-m30-20mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-h10", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-h20", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-h20-eagle", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-h30", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-m-ltd", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-m10-size-sm-slc51-demo-sale", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-m30", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-m30-eagle", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-m30-eagle-size-lg-pc74-demo-sale", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-occam-omrdpx2", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-oiz-h20", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-oiz-h30", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-oiz-m-ltd", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-oiz-m-team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-oiz-m30", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-optima-e40-20-mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-optima-e50-20-mph", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m10i-team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m11e-team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m20i-team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m20iteam-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m20team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m20team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m20team-pwr", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m30team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-aero-m30team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m11eteam-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m20", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m20iteam-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m20team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m20team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m21eltd-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m21eteam-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m21iteam-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m30", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m30team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m30team-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-orca-m40", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-ordu-m20-team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-ordu-m20i-team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-rallon-m-ltd", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-rallon-m-team", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-rallon-m10", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-rallon-m20", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-terra-h30-d", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-terra-m30-d-1x", "weight": 1}, {"from": "/pages/orbea/", "label": 1, "to": "/product/2020-orbea-vector-drop-ltd", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
