@@ -1,3 +1,4 @@
+from pickle import FALSE
 import networkx as nx ;
 import csv ;
 from pyvis.network import Network ;
@@ -27,6 +28,16 @@ def getParentNodes (graph) :
         if len(list(graph.neighbors(n))) > 1 :
             parentNodes.append(n)
     return parentNodes
+
+def findOffender(graph,parentNode,tracker = []) :
+    nlist = list(graph.neighbors(parentNode))
+    for n in nlist:
+        if(n in tracker == False) :
+            tracker.append(n)
+            
+   
+    
+
         
         
 
