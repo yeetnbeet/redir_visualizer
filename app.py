@@ -29,23 +29,23 @@ def getParentNodes (graph) :
             parentNodes.append(n)
     return parentNodes
 
-def findOffender(graph,parentNode,tracker = []) :
-    nlist = list(graph.neighbors(parentNode))
-    for n in nlist:
-        if(n in tracker == False) :
-            tracker.append(n)
+def findOffender(graph,parentNodes) :
+    badClusters = []
+    for parentNode in parentNodes:
+        neighbors = list(nx.all_neighbors(graph,parentNode))
+        for i in neighbors:
+            size = list(graph.neighbors(i))
+            if (len(size) > 1):
+                badClusters.append(i)
             
-   
-    
+    print(badClusters)            
 
         
-        
-
-
 def main():
     net = Network(notebook=True)
     graph = csvIN()
-    #visualize(graph)
-    print(getParentNodes(graph))
+    visualize(graph)
+    parentnodes = getParentNodes(graph)
+    findOffender(graph,parentnodes)
      
 main()
