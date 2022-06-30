@@ -47,22 +47,36 @@ def findOffender(graph,parentNodes) :
             if (d in badClusters):
                 dlen = len(list(nx.all_neighbors(graph,d)))
                 itemlen = len(list(nx.all_neighbors(graph,item)))
-                if (dlen >= itemlen):
+                if (dlen > itemlen):
                     badClusters.remove(item)
-                else:    
+                else :    
                     badClusters.remove(d)
         
-            
-    for item in badClusters:
-        print(item)
-    print(len(badClusters))            
+    badCluster = removeDuplicates(badClusters)
+    res = []        
+    for item in badCluster:
+        res.append([item,len(list(nx.all_neighbors(graph,item)))])
+    return res
 
-        
+def removeDuplicates(test_list):
+    res = []
+    for i in test_list:
+        if i not in res:
+            res.append(i)
+    return res
+            
+
 def main():
     net = Network(notebook=True)
     graph = csvIN()
     parentnodes = getParentNodes(graph)
-    findOffender(graph,parentnodes)
+    res = findOffender(graph,parentnodes)
+    for item in res :
+        print("-----------------")
+        print(item[0])        
+        print(item[1])
+        print("-----------------")
+    print(len(res))
     visualize(graph)
      
 main()
