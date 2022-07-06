@@ -1,7 +1,9 @@
 from pickle import FALSE
+from re import I
 import networkx as nx ;
 import csv ;
 from pyvis.network import Network ;
+import requests ;
 #virtual env GRAPH source GRAPH/bin/activate
 
 #take csv and pulls it into tuples
@@ -64,6 +66,15 @@ def removeDuplicates(test_list):
         if i not in res:
             res.append(i)
     return res
+
+def writeClusters(graph,parentNodes) :
+    for i in parentNodes :
+        r = requests.get("https://contenderbicycles.com"+i)
+        print(r.status_code)
+
+
+
+
             
 
 def main():
@@ -71,12 +82,16 @@ def main():
     graph = csvIN()
     parentnodes = getParentNodes(graph)
     res = findOffender(graph,parentnodes)
+    allbrokennodes = [] 
     for item in res :
         print("-----------------")
+        allbrokennodes.append(item[0])
         print(item[0])        
         print(item[1])
         print("-----------------")
     print(len(res))
+    print("|||||||||||||||||||||||||")
     visualize(graph)
+    writeClusters(graph,allbrokennodes)
      
 main()
