@@ -20,11 +20,11 @@ def csvIN () :
     return graph
 
 #creates an interactive visual using pyvis.network    
-def visualize (graph) :
+def visualize (graph,name) :
     net = Network(notebook=True)
     dir_network = nx.Graph(graph)
     net.from_nx(dir_network)
-    net.show("output.html")
+    net.show(name+".html")
 
 #finds a group that could technically be a chain
 def getParentNodes (graph) :
@@ -72,18 +72,27 @@ def writeClusters(graph,parentNodes) :
         print(r.status_code)
 
 
-def main():
-    net = Network(notebook=True)
+def init():
     graph = csvIN()
     l = findOffender(graph,getParentNodes(graph))
-    print("----------------------------------")
-    for item in l:
-        print(item)
     
+    listofgraphs = []
+    listofedgelists = []
+    for item in l:
+        edge = edgelistFromNode(graph,item)
+        listofedgelists.append
+        listofgraphs.append(nx.Graph(edge))
+        
+    count = 1
+    for item in listofgraphs:
+        visualize(item,"graph"+str(count))
+        count += 1
+    print("The Number redirect Chains: ",count-1)
     print("----------------------------------")
-    el = edgelistFromNode(graph,l[1])
-    subgraph = nx.Graph(el)
-    visualize(subgraph)
+         
+    return 
+    
     
      
-main()
+if __name__ =="__main__":
+    init()
