@@ -50,6 +50,21 @@ def findOffender(graph,parentNodes) :
                         groupWithIssues.append(i)
     
     return groupWithIssues
+
+def edgelistFromNode (graph,node):
+    edgelist = []
+    trivialedges = list(graph.neighbors(node))
+    for i in trivialedges:
+        edge1 = (node,i)
+        edgelist.append(edge1)
+    allnodes = list(nx.all_neighbors(graph,node))
+    for i in allnodes :
+        neighbors = list(graph.neighbors(i))
+        for n in neighbors:
+            edge = (n,i)
+            if edge not in edgelist:
+                edgelist.append(edge)
+    return edgelist
             
 def writeClusters(graph,parentNodes) :
     for i in parentNodes :
@@ -65,5 +80,10 @@ def main():
     for item in l:
         print(item)
     visualize(graph)
+    print("----------------------------------")
+    el = edgelistFromNode(graph,l[1])
+    for i in el:
+        print(i)
+    
      
 main()
