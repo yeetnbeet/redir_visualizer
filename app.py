@@ -83,6 +83,7 @@ def main():
     parentnodes = getParentNodes(graph)
     res = findOffender(graph,parentnodes)
     allbrokennodes = [] 
+    
     for item in res :
         print("-----------------")
         allbrokennodes.append(item[0])
