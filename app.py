@@ -14,7 +14,8 @@ def csvIN () :
         array = csv.reader(csvfile)
         loopableArray = list(array)
     for line in loopableArray:
-        output.append((line[0],line[1]))    
+        output.append((line[0],line[1]))
+    print("\nThe number of redirects scanned: ",len(output))    
     graph = nx.Graph(output)
     return graph
 
@@ -35,64 +36,34 @@ def getParentNodes (graph) :
 
 #finds a group that has more than one parent node
 def findOffender(graph,parentNodes) :
-    badClusters = []
+    alreadyChecked = []
+    groupWithIssues = []
+
     for parentNode in parentNodes:
-        neighbors = list(nx.all_neighbors(graph,parentNode))
-        for i in neighbors:
-            size = list(graph.neighbors(i))
-            if (len(size) > 1):
-                badClusters.append(i)
-
-    for item in badClusters:
-        duplicates = list(nx.all_neighbors(graph,item))
-        for d in duplicates:
-            if (d in badClusters):
-                dlen = len(list(nx.all_neighbors(graph,d)))
-                itemlen = len(list(nx.all_neighbors(graph,item)))
-                if (dlen > itemlen):
-                    badClusters.remove(item)
-                else :    
-                    badClusters.remove(d)
-        
-    badCluster = removeDuplicates(badClusters)
-    res = []        
-    for item in badCluster:
-        res.append([item,len(list(nx.all_neighbors(graph,item)))])
-    return res
-
-def removeDuplicates(test_list):
-    res = []
-    for i in test_list:
-        if i not in res:
-            res.append(i)
-    return res
-
+        if parentNode not in alreadyChecked: 
+            neighbors = list(nx.all_neighbors(graph,parentNode))
+            for i in neighbors:
+                if i not in alreadyChecked:
+                    size = list(graph.neighbors(i))
+                    if (len(size) > 1):
+                        alreadyChecked.append(i)
+                        groupWithIssues.append(i)
+    
+    return groupWithIssues
+            
 def writeClusters(graph,parentNodes) :
     for i in parentNodes :
         r = requests.get("https://contenderbicycles.com"+i)
         print(r.status_code)
 
 
-
-
-            
-
 def main():
     net = Network(notebook=True)
     graph = csvIN()
-    parentnodes = getParentNodes(graph)
-    res = findOffender(graph,parentnodes)
-    allbrokennodes = [] 
-    
-    for item in res :
-        print("-----------------")
-        allbrokennodes.append(item[0])
-        print(item[0])        
-        print(item[1])
-        print("-----------------")
-    print(len(res))
-    print("|||||||||||||||||||||||||")
+    l = findOffender(graph,getParentNodes(graph))
+    print("----------------------------------")
+    for item in l:
+        print(item)
     visualize(graph)
-    writeClusters(graph,allbrokennodes)
      
 main()
