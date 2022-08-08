@@ -79,11 +79,11 @@ def main():
     print("----------------------------------")
     for item in l:
         print(item)
-    visualize(graph)
+    
     print("----------------------------------")
     el = edgelistFromNode(graph,l[1])
-    for i in el:
-        print(i)
+    subgraph = nx.Graph(el)
+    visualize(subgraph)
     
      
 main()
