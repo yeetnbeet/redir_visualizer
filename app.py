@@ -1,3 +1,4 @@
+from doctest import master
 from pickle import FALSE
 from re import I
 import networkx as nx ;
@@ -50,12 +51,12 @@ def findOffender(graph,parentNodes) :
                         groupWithIssues.append(i)
     
     return groupWithIssues
-
+#given a node it returns an edgelist of the subgraph
 def edgelistFromNode (graph,node):
     edgelist = []
     trivialedges = list(graph.neighbors(node))
     for i in trivialedges:
-        edge1 = (node,i)
+        edge1 = (i,node)
         edgelist.append(edge1)
     allnodes = list(nx.all_neighbors(graph,node))
     for i in allnodes :
@@ -80,19 +81,28 @@ def init():
     listofedgelists = []
     for item in l:
         edge = edgelistFromNode(graph,item)
-        listofedgelists.append
+        listofedgelists.append(edge)
         listofgraphs.append(nx.Graph(edge))
-        
+         
+    return listofgraphs,listofedgelists
+
+def makeVisuals(listofgraphs):
     count = 1
     for item in listofgraphs:
         visualize(item,"graph"+str(count))
         count += 1
-    print("The Number redirect Chains: ",count-1)
-    print("----------------------------------")
-         
-    return 
     
     
      
 if __name__ =="__main__":
-    init()
+    listofgraphs, listofedges = init()
+    makeVisuals(listofgraphs)
+    count = 1
+    with open('log.txt','w') as f:
+        for item in listofedges:
+            f.write("-------------------- ")
+            f.write(str(count)+"\n")
+            count += 1
+            for e in item:
+                f.write(str(e)+"\n")
+            f.write("---------------------\n")
