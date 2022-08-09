@@ -1,7 +1,6 @@
-from doctest import master
-from pickle import FALSE
-from re import I
+
 import networkx as nx ;
+import networkx.algorithms.isomorphism as iso
 import csv ;
 from pyvis.network import Network ;
 import requests ;
@@ -67,10 +66,28 @@ def edgelistFromNode (graph,node):
                 edgelist.append(edge)
     return edgelist
             
-def writeClusters(graph,parentNodes) :
-    for i in parentNodes :
-        r = requests.get("https://contenderbicycles.com"+i)
-        print(r.status_code)
+def removeDuplicateGraphs(glist):
+    listofGraphs = [glist[0]]
+    for item in glist:
+        flag = 1
+        for graph in listofGraphs:
+            if nx.is_isomorphic(graph,item):
+                print("iso found")
+                flag = 0
+        if flag == 1 :
+            listofGraphs.append(item)
+    return listofGraphs
+
+
+                
+             
+                
+            
+        
+        
+        
+
+
 
 
 def init():
@@ -96,13 +113,14 @@ def makeVisuals(listofgraphs):
      
 if __name__ =="__main__":
     listofgraphs, listofedges = init()
+    listofgraphs = removeDuplicateGraphs(listofgraphs)
     makeVisuals(listofgraphs)
-    count = 1
-    with open('log.txt','w') as f:
-        for item in listofedges:
-            f.write("-------------------- ")
-            f.write(str(count)+"\n")
-            count += 1
-            for e in item:
-                f.write(str(e)+"\n")
-            f.write("---------------------\n")
+    #count = 1
+    #with open('log.txt','w') as f:
+        #for item in listofedges:
+            #f.write("-------------------- ")
+            #f.write(str(count)+"\n")
+            #count += 1
+            #for e in item:
+                #f.write(str(e)+"\n")
+            #f.write("---------------------\n")
