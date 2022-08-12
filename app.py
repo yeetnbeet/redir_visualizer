@@ -80,26 +80,19 @@ def removeDuplicateGraphs(glist):
 
 
                 
-             
-                
-            
-        
-        
-        
-
-
-
-
 def init():
     graph = csvIN()
     l = findOffender(graph,getParentNodes(graph))
     
     listofgraphs = []
     listofedgelists = []
-    for item in l:
+    for item in l: #TODO add If not in statement to remove duplicates
         edge = edgelistFromNode(graph,item)
-        listofedgelists.append(edge)
-        listofgraphs.append(nx.Graph(edge))
+        if edge not in listofedgelists:
+            listofedgelists.append(edge)
+            listofgraphs.append(nx.Graph(edge))
+        elif edge in listofedgelists:
+            print("duplicate")
          
     return listofgraphs,listofedgelists
 
@@ -108,19 +101,26 @@ def makeVisuals(listofgraphs):
     for item in listofgraphs:
         visualize(item,"graph"+str(count))
         count += 1
+
+def iterativeEdgeList(graphlist):
+    res = []
+    for item in graphlist:
+        node = list(item.nodes[0])
+        temp = edgelistFromNode(item,node)
+
     
     
      
 if __name__ =="__main__":
     listofgraphs, listofedges = init()
-    listofgraphs = removeDuplicateGraphs(listofgraphs)
+    #listofgraphs = removeDuplicateGraphs(listofgraphs) 
     makeVisuals(listofgraphs)
-    #count = 1
-    #with open('log.txt','w') as f:
-        #for item in listofedges:
-            #f.write("-------------------- ")
-            #f.write(str(count)+"\n")
-            #count += 1
-            #for e in item:
-                #f.write(str(e)+"\n")
-            #f.write("---------------------\n")
+    count = 1
+    with open('log.txt','w') as f:
+        for item in listofedges:
+            f.write("-------------------- ")
+            f.write(str(count)+"\n")
+            count += 1
+            for e in item:
+                f.write(str(e)+"\n")
+            f.write("---------------------\n")
