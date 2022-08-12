@@ -1,4 +1,4 @@
-import app;
+import lib.app as app;
 import requests ;
 import networkx as nx ;
 
@@ -13,9 +13,11 @@ def sortGraph(g):
                 sortedList.append(node)
                 
         flag -= 1  
-    return [sortedList[0],sortedList]
+    return [sortedList[0],g]
 
-
+def createInterface(graphlist):
+    interfaceObject = {}
+    
 
 
 
