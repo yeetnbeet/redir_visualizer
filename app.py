@@ -3,7 +3,7 @@ import networkx as nx ;
 import networkx.algorithms.isomorphism as iso
 import csv ;
 from pyvis.network import Network ;
-import requests ;
+
 #virtual env GRAPH source GRAPH/bin/activate
 
 #take csv and pulls it into tuples
@@ -124,3 +124,5 @@ if __name__ =="__main__":
             for e in item:
                 f.write(str(e)+"\n")
             f.write("---------------------\n")
+
+    
